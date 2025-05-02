@@ -287,13 +287,15 @@ u
 x[u]
 
 
-## Subsetting Lists
+# =======================
+#   Subsetting List 
+# =======================
 # 2 element list
 x <- list(foo = 1:4, bar = 0.6)
-
+x
 # list that has: foo(name) + sequence(values):
 x[1]
-# only sequence:
+# only sequence or only value if you get bar [[2]]:
 x[[1]]
 
 # element associated with bar
@@ -302,3 +304,119 @@ x$bar
 x[["bar"]]
 # list with element bar in it
 x["bar"]
+
+
+# =======================
+#   Subsetting Matrix 
+# =======================
+
+m <- matrix(1:6, 2, 3)
+m
+
+# [row,col] indices
+m[1,2]
+
+# Indices can be missing
+# Every Element from 1st row
+m[1, ]
+# Every Element from 2nd col
+m[,2]
+
+# By default when a single element retrieved it is returned as vector of length 1 rather than 1x1 matrix
+# This can be change setting drop = FALSE
+
+m[1,2]
+# [1] 3
+
+m[1,2, drop = FALSE] # -> drop the dimension FALSE/TRUE
+#       [,1]
+# [1,]    3
+
+m[1, , drop = FALSE]
+
+
+# =======================
+# Subsetting - Partial Matching 
+# =======================
+# Just being lazy using some parts of the name to access to values
+x <- list(foo = 1:4)
+
+# instead of `foo` only `f` will be enough
+x$f
+
+# For double bracet you need to change setting see below to work with partial matching
+x[["f"]]
+
+x[["f", exact = FALSE]]
+
+
+# =======================
+# Subsetting - Removing Missing (NAs) Values
+# =======================
+x <- c(1, 2, NA, 4, NA, 5)
+
+# bad vector shows which value in x vector is NA
+bad <- is.na(x)
+
+# x vector without the NA values
+x[!bad]
+
+# Multiple things and you want to take subset with no missing values
+a <- c(1, 2, NA, 4, NA, 5)
+b <- c("a", "b", NA, "d", NA, "f")
+
+# !! Multiple vector has to be same length
+good <- complete.cases(a, b)
+
+good
+a[good]
+b[good]
+
+
+# =======================
+# Vectorized Operations
+# =======================
+# Many operations in R are vectorized making code more efficent, concise and easier to read.
+
+x <- 1:4; y <- 6:9
+
+# Vector addition
+x+y
+
+# Each element of x and operation of x_i>2 where i is i-th element of vector x
+x>2
+x>=2
+y==8
+
+x*y
+
+x/y
+
+# Matrix:
+# Element-wise multiplication `x*y`
+# Real matrix multiplication `x %*% y`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
